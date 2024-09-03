@@ -188,8 +188,8 @@ class PublicationFormatForm extends Form {
 			SubmissionLog::logEvent(Application::get()->getRequest(), $this->getMonograph(), SUBMISSION_LOG_PUBLICATION_FORMAT_CREATE, 'submission.event.publicationFormatCreated', array('formatName' => $publicationFormat->getLocalizedName()));
 		}
 
+		$publication = Services::get('publication')->edit($publication, [], Application::get()->getRequest());
+
 		return $representationId;
 	}
 }
-
-

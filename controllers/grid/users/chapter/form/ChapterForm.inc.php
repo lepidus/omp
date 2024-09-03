@@ -238,8 +238,8 @@ class ChapterForm extends Form {
 			DAORegistry::getDAO('SubmissionFileDAO')->updateChapterFiles($selectedFiles, $this->getChapter()->getId());
 		}
 
+		$publication = Services::get('publication')->edit($publication, [], Application::get()->getRequest());
+
 		return true;
 	}
 }
-
-

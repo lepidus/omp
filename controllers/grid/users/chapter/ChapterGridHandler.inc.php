@@ -482,6 +482,8 @@ class ChapterGridHandler extends CategoryGridHandler {
 
 		$chapterDao = DAORegistry::getDAO('ChapterDAO'); /* @var $chapterDao ChapterDAO */
 		$chapterDao->deleteById($chapterId);
+		$publication = $this->getPublication();
+		$publication = Services::get('publication')->edit($publication, [], $request);
 		return DAO::getDataChangedEvent();
 	}
 
@@ -495,5 +497,3 @@ class ChapterGridHandler extends CategoryGridHandler {
 			);
 	}
 }
-
-
