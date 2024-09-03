@@ -198,8 +198,6 @@ class ChapterForm extends Form {
 	 * @see Form::execute()
 	 */
 	function execute(...$functionParams) {
-		parent::execute(...$functionParams);
-
 		$chapterDao = DAORegistry::getDAO('ChapterDAO'); /* @var $chapterDao ChapterDAO */
 		$chapter = $this->getChapter();
 		$isEdit = !!$chapter;
@@ -238,8 +236,10 @@ class ChapterForm extends Form {
 			DAORegistry::getDAO('SubmissionFileDAO')->updateChapterFiles($selectedFiles, $this->getChapter()->getId());
 		}
 
+		parent::execute(...$functionParams);
+
+		$publication = Services::get('publication')->edit($publication, [], Application::get()->getRequest());
+
 		return true;
 	}
 }
-
-

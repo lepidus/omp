@@ -324,6 +324,8 @@ class PublicationFormatGridHandler extends CategoryGridHandler {
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification($currentUser->getId(), NOTIFICATION_TYPE_SUCCESS, array('contents' => __('notification.removedPublicationFormat')));
 
+		$publication = Services::get('publication')->edit($publication, [], $request);
+
 		return DAO::getDataChangedEvent();
 	}
 
@@ -383,6 +385,8 @@ class PublicationFormatGridHandler extends CategoryGridHandler {
 			$publicationFormatTombstoneMgr->insertTombstoneByPublicationFormat($representation, $request->getContext());
 		}
 
+		$publication = Services::get('publication')->edit($publication, [], $request);
+
 		return DAO::getDataChangedEvent($representation->getId());
 	}
 
@@ -424,6 +428,8 @@ class PublicationFormatGridHandler extends CategoryGridHandler {
 			$publicationFormatTombstoneMgr->deleteTombstonesByPublicationFormats(array($publicationFormat));
 			$publicationFormatTombstoneMgr->insertTombstoneByPublicationFormat($publicationFormat, $context);
 		}
+
+		$publication = Services::get('publication')->edit($publication, [], $request);
 
 		return DAO::getDataChangedEvent($publicationFormat->getId());
 	}
