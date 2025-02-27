@@ -155,8 +155,6 @@ class PublicationFormatForm extends Form {
 	 * @see Form::execute()
 	 */
 	function execute(...$functionParams) {
-		parent::execute(...$functionParams);
-
 		$publicationFormatDao = DAORegistry::getDAO('PublicationFormatDAO'); /* @var $publicationFormatDao PublicationFormatDAO */
 		$publicationFormat = $this->getPublicationFormat();
 		if (!$publicationFormat) {
@@ -188,8 +186,10 @@ class PublicationFormatForm extends Form {
 			SubmissionLog::logEvent(Application::get()->getRequest(), $this->getMonograph(), SUBMISSION_LOG_PUBLICATION_FORMAT_CREATE, 'submission.event.publicationFormatCreated', array('formatName' => $publicationFormat->getLocalizedName()));
 		}
 
+		parent::execute(...$functionParams);
+
+		$publication = Services::get('publication')->edit($publication, [], Application::get()->getRequest());
+
 		return $representationId;
 	}
 }
-
-
